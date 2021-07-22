@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "FileKit",
+        "repositoryURL": "https://github.com/nvzqz/FileKit.git",
+        "state": {
+          "branch": null,
+          "revision": "826d9161b184509f80d85c28cd612d630646de98",
+          "version": "6.0.0"
+        }
+      },
+      {
+        "package": "Then",
+        "repositoryURL": "https://github.com/devxoul/Then.git",
+        "state": {
+          "branch": null,
+          "revision": "e421a7b3440a271834337694e6050133a3958bc7",
+          "version": "2.7.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

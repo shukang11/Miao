@@ -3,24 +3,46 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		232EF40326A7F47B0067C3A4 /* VideoPreviewItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 232EF40226A7F47B0067C3A4 /* VideoPreviewItem.swift */; };
+		2333A53326A7B38C00751F06 /* MediaResourceManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2333A53226A7B38C00751F06 /* MediaResourceManager.swift */; };
+		2333A53526A7C2BA00751F06 /* ResourceType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2333A53426A7C2BA00751F06 /* ResourceType.swift */; };
 		2339461126A1338C0082A62F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339461026A1338C0082A62F /* AppDelegate.swift */; };
-		2339461326A1338C0082A62F /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339461226A1338C0082A62F /* ViewController.swift */; };
 		2339461526A1338E0082A62F /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2339461426A1338E0082A62F /* Assets.xcassets */; };
 		2339461826A1338E0082A62F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2339461626A1338E0082A62F /* Main.storyboard */; };
+		2339462326A136C60082A62F /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2339462226A136C60082A62F /* FileKit */; };
+		2339462526A136F10082A62F /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462426A136F10082A62F /* StatusItemManager.swift */; };
+		2339462826A1374B0082A62F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2339462726A1374B0082A62F /* Then */; };
+		2339462C26A1377A0082A62F /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462B26A1377A0082A62F /* VideoItem.swift */; };
+		2339462E26A137E80082A62F /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462D26A137E80082A62F /* VideoPlayer.swift */; };
+		236451CC26A6B03B003B8E6A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236451CB26A6B03B003B8E6A /* Config.swift */; };
+		238354D626A6A9A9006075B5 /* PreferenceSettingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238354D526A6A9A9006075B5 /* PreferenceSettingView.swift */; };
+		238D310326A2BBD50035EB6E /* ScreenSaverVideoWrapperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238D310226A2BBD50035EB6E /* ScreenSaverVideoWrapperView.swift */; };
+		23B11A4026A5791E004FD56E /* SettingRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B11A3F26A5791E004FD56E /* SettingRootView.swift */; };
+		23B11A6226A5824D004FD56E /* VideoBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23B11A6126A5824D004FD56E /* VideoBoardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		232EF40226A7F47B0067C3A4 /* VideoPreviewItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPreviewItem.swift; sourceTree = "<group>"; };
+		2333A53226A7B38C00751F06 /* MediaResourceManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MediaResourceManager.swift; sourceTree = "<group>"; };
+		2333A53426A7C2BA00751F06 /* ResourceType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResourceType.swift; sourceTree = "<group>"; };
 		2339460D26A1338C0082A62F /* Miao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Miao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2339461026A1338C0082A62F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		2339461226A1338C0082A62F /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		2339461426A1338E0082A62F /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2339461726A1338E0082A62F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2339461926A1338E0082A62F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2339461A26A1338E0082A62F /* Miao.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Miao.entitlements; sourceTree = "<group>"; };
+		2339462426A136F10082A62F /* StatusItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StatusItemManager.swift; sourceTree = "<group>"; };
+		2339462B26A1377A0082A62F /* VideoItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoItem.swift; sourceTree = "<group>"; };
+		2339462D26A137E80082A62F /* VideoPlayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoPlayer.swift; sourceTree = "<group>"; };
+		236451CB26A6B03B003B8E6A /* Config.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Config.swift; sourceTree = "<group>"; };
+		238354D526A6A9A9006075B5 /* PreferenceSettingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferenceSettingView.swift; sourceTree = "<group>"; };
+		238D310226A2BBD50035EB6E /* ScreenSaverVideoWrapperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScreenSaverVideoWrapperView.swift; sourceTree = "<group>"; };
+		23B11A3F26A5791E004FD56E /* SettingRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingRootView.swift; sourceTree = "<group>"; };
+		23B11A6126A5824D004FD56E /* VideoBoardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VideoBoardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -28,12 +50,23 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2339462326A136C60082A62F /* FileKit in Frameworks */,
+				2339462826A1374B0082A62F /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		232EF40126A7F4630067C3A4 /* Video */ = {
+			isa = PBXGroup;
+			children = (
+				23B11A6126A5824D004FD56E /* VideoBoardView.swift */,
+				232EF40226A7F47B0067C3A4 /* VideoPreviewItem.swift */,
+			);
+			path = Video;
+			sourceTree = "<group>";
+		};
 		2339460426A1338B0082A62F = {
 			isa = PBXGroup;
 			children = (
@@ -53,14 +86,63 @@
 		2339460F26A1338C0082A62F /* Miao */ = {
 			isa = PBXGroup;
 			children = (
+				238354D226A6A34B006075B5 /* WindowController */,
+				23B11A6026A5822D004FD56E /* View */,
+				2339462A26A1376C0082A62F /* Model */,
+				2339462926A137580082A62F /* Core */,
+				2339462026A135F20082A62F /* Component */,
 				2339461026A1338C0082A62F /* AppDelegate.swift */,
-				2339461226A1338C0082A62F /* ViewController.swift */,
+				23B11A3F26A5791E004FD56E /* SettingRootView.swift */,
 				2339461426A1338E0082A62F /* Assets.xcassets */,
 				2339461626A1338E0082A62F /* Main.storyboard */,
 				2339461926A1338E0082A62F /* Info.plist */,
 				2339461A26A1338E0082A62F /* Miao.entitlements */,
 			);
 			path = Miao;
+			sourceTree = "<group>";
+		};
+		2339462026A135F20082A62F /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				2339462426A136F10082A62F /* StatusItemManager.swift */,
+				236451CB26A6B03B003B8E6A /* Config.swift */,
+				2333A53226A7B38C00751F06 /* MediaResourceManager.swift */,
+			);
+			path = Component;
+			sourceTree = "<group>";
+		};
+		2339462926A137580082A62F /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				2339462D26A137E80082A62F /* VideoPlayer.swift */,
+				238D310226A2BBD50035EB6E /* ScreenSaverVideoWrapperView.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		2339462A26A1376C0082A62F /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2333A53426A7C2BA00751F06 /* ResourceType.swift */,
+				2339462B26A1377A0082A62F /* VideoItem.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		238354D226A6A34B006075B5 /* WindowController */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = WindowController;
+			sourceTree = "<group>";
+		};
+		23B11A6026A5822D004FD56E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				232EF40126A7F4630067C3A4 /* Video */,
+				238354D526A6A9A9006075B5 /* PreferenceSettingView.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -79,6 +161,10 @@
 			dependencies = (
 			);
 			name = Miao;
+			packageProductDependencies = (
+				2339462226A136C60082A62F /* FileKit */,
+				2339462726A1374B0082A62F /* Then */,
+			);
 			productName = Miao;
 			productReference = 2339460D26A1338C0082A62F /* Miao.app */;
 			productType = "com.apple.product-type.application";
@@ -106,6 +192,10 @@
 				Base,
 			);
 			mainGroup = 2339460426A1338B0082A62F;
+			packageReferences = (
+				2339462126A136C60082A62F /* XCRemoteSwiftPackageReference "FileKit" */,
+				2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */,
+			);
 			productRefGroup = 2339460E26A1338C0082A62F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -132,8 +222,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2339461326A1338C0082A62F /* ViewController.swift in Sources */,
+				2339462526A136F10082A62F /* StatusItemManager.swift in Sources */,
+				2339462E26A137E80082A62F /* VideoPlayer.swift in Sources */,
+				236451CC26A6B03B003B8E6A /* Config.swift in Sources */,
+				238D310326A2BBD50035EB6E /* ScreenSaverVideoWrapperView.swift in Sources */,
+				2339462C26A1377A0082A62F /* VideoItem.swift in Sources */,
 				2339461126A1338C0082A62F /* AppDelegate.swift in Sources */,
+				232EF40326A7F47B0067C3A4 /* VideoPreviewItem.swift in Sources */,
+				23B11A6226A5824D004FD56E /* VideoBoardView.swift in Sources */,
+				2333A53326A7B38C00751F06 /* MediaResourceManager.swift in Sources */,
+				238354D626A6A9A9006075B5 /* PreferenceSettingView.swift in Sources */,
+				2333A53526A7C2BA00751F06 /* ResourceType.swift in Sources */,
+				23B11A4026A5791E004FD56E /* SettingRootView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -326,6 +426,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		2339462126A136C60082A62F /* XCRemoteSwiftPackageReference "FileKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/nvzqz/FileKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.0.0;
+			};
+		};
+		2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/devxoul/Then.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		2339462226A136C60082A62F /* FileKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2339462126A136C60082A62F /* XCRemoteSwiftPackageReference "FileKit" */;
+			productName = FileKit;
+		};
+		2339462726A1374B0082A62F /* Then */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */;
+			productName = Then;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 2339460526A1338B0082A62F /* Project object */;
 }
