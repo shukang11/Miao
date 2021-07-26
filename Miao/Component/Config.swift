@@ -31,7 +31,7 @@ extension PlayMode: CustomStringConvertible {
 class Config: ObservableObject {
     // 播放模式
     @AppStorage("play.mode.value") var playModeValue: Int = PlayMode.loop.rawValue {
-        didSet {
+        willSet {
             MediaResourceManager.shared.playModeDidChangeTo(playMode)
         }
     }
@@ -42,7 +42,7 @@ class Config: ObservableObject {
     // 播放音量
     @AppStorage("play.volumn") var volumn: Int = 0
     // 是否是静音播放
-    var isMute: Bool { return volumn == 0 }
+    @AppStorage("play.mute") var isMute: Bool = true
     
     var playMode: PlayMode {
         return PlayMode(rawValue: playModeValue) ?? .loop

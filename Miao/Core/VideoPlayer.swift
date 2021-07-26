@@ -8,15 +8,21 @@
 import Foundation
 import AVFoundation
 
+protocol VideoPlayerDelegate: AnyObject {
+    
+}
+
 class VideoPlayer {
     
     private let queue: DispatchQueue = DispatchQueue.init(label: UUID().uuidString)
     
-    private let player: AVQueuePlayer
+    let player: AVQueuePlayer
     
     private var rate: Float = 1.0
     
-    private var currentItem: VideoItem?
+    var weak: VideoPlayerDelegate?
+    
+    public private(set) var currentItem: VideoItem?
     
     private var playList: [VideoItem] = []
     
@@ -24,10 +30,9 @@ class VideoPlayer {
     
     init(player: AVQueuePlayer) {
         self.player = player
-        setupNotificationIfNeeded()
     }
     
-    func play(item: VideoItem) {
+    public func play(item: VideoItem) {
         removeObserverIfNeeded()
         currentItem = item
         player.removeAllItems()
@@ -54,24 +59,34 @@ class VideoPlayer {
         player.pause()
     }
     
-    func advanceToNextItemIfNeeded() {
+    public func advanceToNextItemIfNeeded() {
         guard let item = currentItem else { return }
         guard let newIndex = playList.firstIndex(of: item)?.advanced(by: 1) else { return }
         let newItem = playList[newIndex]
         play(item: newItem)
     }
     
-    func advanceToPrevItemIfNeeded() {
+    public func advanceToPrevItemIfNeeded() {
         guard let item = currentItem else { return }
         guard let newIndex = playList.lastIndex(of: item)?.advanced(by: -1) else { return }
         let newItem = playList[newIndex]
         play(item: newItem)
     }
     
+    @discardableResult
+    public func advancePlayRandomItem(_ except: VideoItem? = nil) -> Bool {
+        var newList = playList
+        if let exceptItem = except {
+            newList.removeAll(where: { $0.uuid == exceptItem.uuid })
+        }
+        guard let item = newList.randomElement() else { return false }
+        play(item: item)
+        return true
+    }
+    
     private func play() {
         player.playImmediately(atRate: rate)
         player.actionAtItemEnd = .none
-        
         player.play()
     }
 }
@@ -87,23 +102,4 @@ private extension VideoPlayer {
         
     }
     
-    func setupNotificationIfNeeded() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onPlayDidEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
-    
-    @objc func onPlayDidEnd(_ notification: Notification) {
-        guard let item = notification.object as? AVPlayerItem, item == self.player.currentItem else { return }
-        switch Config.shared.playMode {
-        case .loop:
-            advanceToNextItemIfNeeded()
-            break
-        case .random:
-            if let nextItem = playList.randomElement() {
-                play(item: nextItem)
-            }
-            break
-        case .single: return
-        }
-        
-    }
 }

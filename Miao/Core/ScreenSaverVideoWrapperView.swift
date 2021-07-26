@@ -34,6 +34,25 @@ class ScreenSaverVideoWrapperView: ScreenSaverView {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
+    
+    func setupNotificationIfNeeded() {
+        NotificationCenter.default.addObserver(self, selector: #selector(onPlayDidEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
+    }
+    
+    @objc func onPlayDidEnd(_ notification: Notification) {
+        guard let item = notification.object as? AVPlayerItem, let currentItem = videoPlayer?.player.currentItem, item == currentItem else { return }
+        switch Config.shared.playMode {
+        case .loop:
+            videoPlayer?.advanceToNextItemIfNeeded()
+            break
+        case .random:
+            videoPlayer?.advancePlayRandomItem()
+            break
+        case .single: return
+        }
+        
+    }
 }
 
 final class ScreenSaverVideoWrapperWindow: NSWindow {

@@ -15,7 +15,6 @@
 		2339461826A1338E0082A62F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2339461626A1338E0082A62F /* Main.storyboard */; };
 		2339462326A136C60082A62F /* FileKit in Frameworks */ = {isa = PBXBuildFile; productRef = 2339462226A136C60082A62F /* FileKit */; };
 		2339462526A136F10082A62F /* StatusItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462426A136F10082A62F /* StatusItemManager.swift */; };
-		2339462826A1374B0082A62F /* Then in Frameworks */ = {isa = PBXBuildFile; productRef = 2339462726A1374B0082A62F /* Then */; };
 		2339462C26A1377A0082A62F /* VideoItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462B26A1377A0082A62F /* VideoItem.swift */; };
 		2339462E26A137E80082A62F /* VideoPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2339462D26A137E80082A62F /* VideoPlayer.swift */; };
 		236451CC26A6B03B003B8E6A /* Config.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236451CB26A6B03B003B8E6A /* Config.swift */; };
@@ -51,7 +50,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				2339462326A136C60082A62F /* FileKit in Frameworks */,
-				2339462826A1374B0082A62F /* Then in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -163,7 +161,6 @@
 			name = Miao;
 			packageProductDependencies = (
 				2339462226A136C60082A62F /* FileKit */,
-				2339462726A1374B0082A62F /* Then */,
 			);
 			productName = Miao;
 			productReference = 2339460D26A1338C0082A62F /* Miao.app */;
@@ -194,7 +191,6 @@
 			mainGroup = 2339460426A1338B0082A62F;
 			packageReferences = (
 				2339462126A136C60082A62F /* XCRemoteSwiftPackageReference "FileKit" */,
-				2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */,
 			);
 			productRefGroup = 2339460E26A1338C0082A62F /* Products */;
 			projectDirPath = "";
@@ -436,14 +432,6 @@
 				minimumVersion = 6.0.0;
 			};
 		};
-		2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/devxoul/Then.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 2.7.0;
-			};
-		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -451,11 +439,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2339462126A136C60082A62F /* XCRemoteSwiftPackageReference "FileKit" */;
 			productName = FileKit;
-		};
-		2339462726A1374B0082A62F /* Then */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 2339462626A1374B0082A62F /* XCRemoteSwiftPackageReference "Then" */;
-			productName = Then;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

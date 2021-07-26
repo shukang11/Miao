@@ -11,18 +11,22 @@ import FileKit
 
 class MediaResourceManager: ObservableObject {
     static var `shared`: MediaResourceManager = MediaResourceManager()
+    // 定义的常量
     private struct K {
         static let cacheDir = Path.userMovies + "Miao" + ".cache"
         
         static let activeVideoUUIDsKey = "active.file.uuid"
-                
+        
         static let allVideoConfigPath = Path.userMovies + "Miao" + ".config" + "all.videos"
     }
     
+    // 可用的window
     private var windows: [ScreenSaverVideoWrapperWindow] = []
     
+    // 所有视频列表
     @Published private(set) var resources: [VideoItem] = []
     
+    // 当前激活状态的视频列表
     @Published var activeVideos: Set<VideoItem> = Set() {
         willSet {
             let values = Array(newValue).map({ $0.uuid.uuidString })
@@ -31,6 +35,7 @@ class MediaResourceManager: ObservableObject {
         }
     }
     
+    // 等同`resources`， 通过这个属性可以对视图更新
     private var allVideos: Set<VideoItem> = Set() {
         willSet {
             resources = Array(newValue)
@@ -56,7 +61,7 @@ class MediaResourceManager: ObservableObject {
     }
     
     
-    /// 插入资源
+    // 插入资源
     func insert(resource: ResourceType) -> Bool {
         guard let item = resource as? VideoItem,
               let fileName = item.path?.fileName else { return  false }
@@ -82,7 +87,7 @@ class MediaResourceManager: ObservableObject {
         _ = allVideos.map(remove)
     }
     
-    /// 切换资源的可用状态
+    // 切换资源的可用状态
     @discardableResult
     func toggelActive(_ item: VideoItem) -> Bool {
         if activeVideos.contains(item) {
@@ -94,7 +99,7 @@ class MediaResourceManager: ObservableObject {
         return true
     }
     
-    /// 资源是否可用
+    // 资源是否可用
     func isActive(_ item: VideoItem) -> Bool {
         return activeVideos.contains(item)
     }
@@ -105,7 +110,7 @@ class MediaResourceManager: ObservableObject {
             .filter({ $0 == NSScreen.main })
             .map({ ScreenSaverVideoWrapperWindow(screen: $0) })
     }
-    
+    // 播放
     func playIfNeeded() {
         reloadWindows()
         guard let firstItem = activeVideos.first else { return }
@@ -115,6 +120,10 @@ class MediaResourceManager: ObservableObject {
             window.videoPlayer?.play(item: firstItem)
         })
     }
+}
+
+// MARK: 外界状态变化后调用
+extension MediaResourceManager {
     
     func playModeDidChangeTo(_ newMode: PlayMode) {
         guard newMode == PlayMode.single else { return }
@@ -122,8 +131,15 @@ class MediaResourceManager: ObservableObject {
         activeVideos.removeAll()
         toggelActive(remain)
     }
+    
+    func volumnDidChange(_ newValue: Float) {
+        windows.forEach({
+            $0.videoPlayer?.player.volume = newValue
+        })
+    }
 }
 
+// MARK: 私有方法
 fileprivate extension MediaResourceManager {
     func createDirIfNeeded() {
         for path in [K.cacheDir] {
