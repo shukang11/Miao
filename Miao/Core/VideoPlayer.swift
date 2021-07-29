@@ -8,10 +8,6 @@
 import Foundation
 import AVFoundation
 
-protocol VideoPlayerDelegate: AnyObject {
-    
-}
-
 class VideoPlayer {
     
     private let queue: DispatchQueue = DispatchQueue.init(label: UUID().uuidString)
@@ -19,9 +15,7 @@ class VideoPlayer {
     let player: AVQueuePlayer
     
     private var rate: Float = 1.0
-    
-    var weak: VideoPlayerDelegate?
-    
+        
     public private(set) var currentItem: VideoItem?
     
     private var playList: [VideoItem] = []
@@ -33,7 +27,6 @@ class VideoPlayer {
     }
     
     public func play(item: VideoItem) {
-        removeObserverIfNeeded()
         currentItem = item
         player.removeAllItems()
         let newItem: AVPlayerItem = item.generatePlayItem()
@@ -46,7 +39,7 @@ class VideoPlayer {
         player.seek(to: .zero)
         play()
     }
-    
+    // 配置播放列表
     func preparePlayList(_ list: [VideoItem]) {
         guard list.isEmpty == false, let first = list.first, let last = list.last else { return }
         var newList = [last]
@@ -55,10 +48,12 @@ class VideoPlayer {
         playList = newList
     }
     
+    // 暂停
     func pause() {
         player.pause()
     }
     
+    // 下一个
     public func advanceToNextItemIfNeeded() {
         guard let item = currentItem else { return }
         guard let newIndex = playList.firstIndex(of: item)?.advanced(by: 1) else { return }
@@ -66,6 +61,7 @@ class VideoPlayer {
         play(item: newItem)
     }
     
+    // 上一个
     public func advanceToPrevItemIfNeeded() {
         guard let item = currentItem else { return }
         guard let newIndex = playList.lastIndex(of: item)?.advanced(by: -1) else { return }
@@ -73,6 +69,7 @@ class VideoPlayer {
         play(item: newItem)
     }
     
+    // 随机一个
     @discardableResult
     public func advancePlayRandomItem(_ except: VideoItem? = nil) -> Bool {
         var newList = playList
@@ -84,22 +81,10 @@ class VideoPlayer {
         return true
     }
     
+    // 播放
     private func play() {
         player.playImmediately(atRate: rate)
         player.actionAtItemEnd = .none
         player.play()
     }
-}
-
-private extension VideoPlayer {
-    func removeObserverIfNeeded() {
-        guard currentItem != nil,
-              let _ = player.currentItem else { return }
-        
-    }
-    
-    func setupPlayerObserverIfNeeded() {
-        
-    }
-    
 }

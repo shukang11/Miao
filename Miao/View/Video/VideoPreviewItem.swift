@@ -31,6 +31,17 @@ struct VideoPreviewItem: View {
                 Text(item.name)
                 Text(item.uuid.uuidString).padding(.top)
             }.padding(EdgeInsets())
+            
+            Spacer()
+            
+            
+            HStack {
+                Button(action: {
+                    MediaResourceManager.shared.remove(item)
+                }, label: {
+                    Text("删除")
+            })
+            }
         }
         .frame(width: nil, height: 70.0)
     }

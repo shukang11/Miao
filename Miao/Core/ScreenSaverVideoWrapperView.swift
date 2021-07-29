@@ -10,57 +10,32 @@ import AVFoundation
 import ScreenSaver
 
 class ScreenSaverVideoWrapperView: ScreenSaverView {
-    private(set) var videoPlayer: VideoPlayer?
     
     override init?(frame: NSRect, isPreview: Bool) {
         super.init(frame: frame, isPreview: isPreview)
-        setupPlayerLayerIfNeeded()
     }
     
-    fileprivate func setupPlayerLayerIfNeeded() {
+    func setupPlayerLayerIfNeeded(_ player: AVQueuePlayer) {
         wantsLayer = true
         guard let layer = layer else { return }
         
-        let player = AVQueuePlayer()
         let playerLayer = AVPlayerLayer(player: player)
         playerLayer.autoresizingMask = [.layerWidthSizable, .layerHeightSizable]
         playerLayer.frame = bounds
         playerLayer.videoGravity = .resizeAspectFill
         layer.addSublayer(playerLayer)
         
-        videoPlayer = VideoPlayer(player: player)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-    }
-    
-    
-    func setupNotificationIfNeeded() {
-        NotificationCenter.default.addObserver(self, selector: #selector(onPlayDidEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-    }
-    
-    @objc func onPlayDidEnd(_ notification: Notification) {
-        guard let item = notification.object as? AVPlayerItem, let currentItem = videoPlayer?.player.currentItem, item == currentItem else { return }
-        switch Config.shared.playMode {
-        case .loop:
-            videoPlayer?.advanceToNextItemIfNeeded()
-            break
-        case .random:
-            videoPlayer?.advancePlayRandomItem()
-            break
-        case .single: return
-        }
-        
     }
 }
 
 final class ScreenSaverVideoWrapperWindow: NSWindow {
     
     private var screenSaverView: ScreenSaverVideoWrapperView?
-    
-    weak var videoPlayer: VideoPlayer? { return screenSaverView?.videoPlayer }
-    
+        
     convenience init(screen: NSScreen) {
         let size = screen.frame.size
         let frame = CGRect(origin: .zero, size: size)
@@ -79,5 +54,9 @@ final class ScreenSaverVideoWrapperWindow: NSWindow {
         guard let view = screenSaverView else { return }
         view.autoresizingMask = [.width, .height]
         contentView.addSubview(view)
+    }
+    
+    func setupPlayerLayerIfNeeded(_ player: AVQueuePlayer) {
+        screenSaverView?.setupPlayerLayerIfNeeded(player)
     }
 }

@@ -7,6 +7,7 @@
 
 import Foundation
 import Cocoa
+import AVKit
 import FileKit
 
 class MediaResourceManager: ObservableObject {
@@ -44,6 +45,8 @@ class MediaResourceManager: ObservableObject {
         }
     }
     
+    private lazy var player = VideoPlayer(player: AVQueuePlayer())
+    
     private init() {
         createDirIfNeeded()
         if let data = try? Data(contentsOfPath: K.allVideoConfigPath),
@@ -58,10 +61,16 @@ class MediaResourceManager: ObservableObject {
                 .forEach({ activeVideos.insert($0) })
         }
         loadItemsIfNeeded()
+        setupNotificationIfNeeded()
     }
     
     
     // 插入资源
+    @discardableResult
+    func  insert(resources: [VideoItem]) -> Bool {
+        return resources.reduce(true, { $0 && insert(resource: $1) })
+    }
+    
     func insert(resource: ResourceType) -> Bool {
         guard let item = resource as? VideoItem,
               let fileName = item.path?.fileName else { return  false }
@@ -77,6 +86,7 @@ class MediaResourceManager: ObservableObject {
         return true
     }
     
+    @discardableResult
     func remove(_ resource: VideoItem) -> Bool {
         allVideos.remove(resource)
         try? resource.path?.deleteFile()
@@ -85,6 +95,8 @@ class MediaResourceManager: ObservableObject {
     
     func removeAll() {
         _ = allVideos.map(remove)
+        _ = activeVideos.map(remove)
+        resources.removeAll()
     }
     
     // 切换资源的可用状态
@@ -95,7 +107,7 @@ class MediaResourceManager: ObservableObject {
         } else {
             activeVideos.insert(item)
         }
-        playIfNeeded()
+        player.preparePlayList(Array(activeVideos))
         return true
     }
     
@@ -107,18 +119,44 @@ class MediaResourceManager: ObservableObject {
     func reloadWindows() {
         windows.forEach({ $0.close() })
         windows = NSScreen.screens
-            .filter({ $0 == NSScreen.main })
+            .filter({ Config.shared.applyAllScreen ? true : $0 == NSScreen.main })
             .map({ ScreenSaverVideoWrapperWindow(screen: $0) })
+        windows.forEach({ $0.setupPlayerLayerIfNeeded(player.player) })
+    }
+    func launch() {
+        reloadWindows()
+        player.preparePlayList(Array(activeVideos))
+        guard let firstItem = activeVideos.first else { return }
+        player.play(item: firstItem)
     }
     // 播放
     func playIfNeeded() {
-        reloadWindows()
-        guard let firstItem = activeVideos.first else { return }
         
-        windows.forEach({ window in
-            window.videoPlayer?.preparePlayList(Array(activeVideos))
-            window.videoPlayer?.play(item: firstItem)
-        })
+    }
+    
+    func setupNotificationIfNeeded() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(onPlayDidEnd(_:)),
+            name: NSNotification.Name.AVPlayerItemDidPlayToEndTime,
+            object: nil
+        )
+    }
+    
+    @objc func onPlayDidEnd(_ notification: Notification) {
+        guard let item = notification.object as? AVPlayerItem,
+              let currentItem = player.player.currentItem,
+              item == currentItem else { return }
+        switch Config.shared.playMode {
+        case .loop:
+            player.advanceToNextItemIfNeeded()
+            break
+        case .random:
+            player.advancePlayRandomItem()
+            break
+        case .single: return
+        }
+
     }
 }
 
@@ -126,16 +164,24 @@ class MediaResourceManager: ObservableObject {
 extension MediaResourceManager {
     
     func playModeDidChangeTo(_ newMode: PlayMode) {
-        guard newMode == PlayMode.single else { return }
-        guard let remain = activeVideos.first else { return }
-        activeVideos.removeAll()
-        toggelActive(remain)
+        switch newMode {
+        case .loop, .random:
+            activeVideos.removeAll()
+            player.preparePlayList(resources)
+            guard let item = resources.first else { return }
+            player.play(item: item)
+            break
+        case .single:
+            guard let remain = activeVideos.first else { return }
+            activeVideos.removeAll()
+            toggelActive(remain)
+            break
+        }
     }
     
     func volumnDidChange(_ newValue: Float) {
-        windows.forEach({
-            $0.videoPlayer?.player.volume = newValue
-        })
+        player.player.volume = newValue
+        player.player.isMuted = newValue.isZero
     }
 }
 

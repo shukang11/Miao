@@ -40,9 +40,19 @@ class Config: ObservableObject {
     // 视频最终的存储目录
     @AppStorage("path.release") var releasePath: String = Path.userMovies.standardRawValue
     // 播放音量
-    @AppStorage("play.volumn") var volumn: Int = 0
+    @AppStorage("play.volumn") var volumn: Double = 0.0 {
+        willSet {
+            MediaResourceManager.shared.volumnDidChange(Float(newValue))
+        }
+    }
     // 是否是静音播放
-    @AppStorage("play.mute") var isMute: Bool = true
+    @AppStorage("play.mute") var isMute: Bool = true {
+        willSet {
+            MediaResourceManager.shared.volumnDidChange( newValue == true ? Float(0) : Float(volumn))
+        }
+    }
+    
+    @AppStorage("play.screen.all") var applyAllScreen: Bool = true
     
     var playMode: PlayMode {
         return PlayMode(rawValue: playModeValue) ?? .loop

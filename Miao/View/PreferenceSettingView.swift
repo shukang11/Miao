@@ -13,8 +13,6 @@ struct PreferenceSettingView: View {
     
     private let playModeOptions: [PlayMode] = [.loop, .random, .single]
     
-    @State var value: Float = 0.0
-    
     var body: some View {
         Form {
             Picker("播放模式", selection: $config.playModeValue) {
@@ -24,13 +22,15 @@ struct PreferenceSettingView: View {
             }
             
             HStack {
-                Slider(value: $value, in: 0...100) {
+                Slider(value: $config.volumn, in: 0...100) {
                     Text("音量")
-                }
-//                Slider(value: config.$volumn, in: 0...100) {
-//                    Text("音量")
-//                }.disabled(config.isMute)
-//                Toggle("静音", isOn: config.$isMute)
+                }.disabled(config.isMute)
+                Toggle("静音", isOn: $config.isMute)
+            }
+            
+            HStack {
+                Spacer()
+                Toggle("应用所有屏幕（重启后生效）", isOn: $config.applyAllScreen)
             }
         }
         .padding(20.0)

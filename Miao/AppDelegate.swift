@@ -17,9 +17,8 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     
     func applicationDidFinishLaunching(_ aNotification: Notification) {
         setupStatusItem()
-//        onVideoAction()
         onPerferenceAction()
-        MediaResourceManager.shared.playIfNeeded()
+        MediaResourceManager.shared.launch()
     }
 
     func applicationWillTerminate(_ aNotification: Notification) {
@@ -53,7 +52,8 @@ extension AppDelegate {
     @objc func onPerferenceAction() {
         let frame: CGRect
         if let windowFrame = NSScreen.main?.frame {
-            frame = CGRect(x: 0, y: 0, width: windowFrame.width * 0.5, height: windowFrame.height * 0.5)
+            let scale: CGFloat = 0.5
+            frame = CGRect(x: 0, y: 0, width: windowFrame.width * scale, height: windowFrame.height * scale)
         } else {
             frame = CGRect(origin: .zero, size: CGSize(width: 400, height: 300))
         }
