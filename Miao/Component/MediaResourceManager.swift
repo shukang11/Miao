@@ -102,6 +102,11 @@ class MediaResourceManager: ObservableObject {
     // 切换资源的可用状态
     @discardableResult
     func toggelActive(_ item: VideoItem) -> Bool {
+        if PlayMode.single == Config.shared.playMode {
+            if activeVideos.count > 1 {
+                activeVideos.removeAll(keepingCapacity: true)
+            }
+        }
         if activeVideos.contains(item) {
             activeVideos.remove(item)
         } else {
